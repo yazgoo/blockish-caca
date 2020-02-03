@@ -1,0 +1,2 @@
+. ./setup.sh
+mplayer -quiet -vo caca -vf "scale=$BLOCKISH_WIDTH:$BLOCKISH_HEIGHT" "$@"

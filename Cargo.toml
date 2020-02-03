@@ -1,0 +1,19 @@
+[package]
+name = "caca-blockish"
+version = "0.0.1"
+authors = ["yazgoo <yazgoo@gmail.com>"]
+edition = "2018"
+license = "MIT"
+
+[lib]
+crate-type = ["dylib"] 
+path = "src/lib.rs"
+
+[[bin]]
+name = "caca-blockish"
+path = "src/bin.rs"
+
+[dependencies]
+blockish = { version = "0.0.2" }
+redhook = "1.0.0"
+gag = "0.1"
