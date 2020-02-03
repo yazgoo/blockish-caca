@@ -2,6 +2,8 @@
 
 video players in the terminal with blockish over libcaca with LD_PRELOAD magic
 
+[![Alt text](https://img.youtube.com/vi/HminM4V40iI/0.jpg)](https://www.youtube.com/watch?v=HminM4V40iI)
+
 # building it
 
 ```shell
