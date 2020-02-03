@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 set -xe
 SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
