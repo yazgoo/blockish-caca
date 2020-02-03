@@ -17,3 +17,5 @@ path = "src/bin.rs"
 blockish = { version = "0.0.2" }
 redhook = "1.0.0"
 gag = "0.1"
+
+crossterm = { version = "0.14" }
