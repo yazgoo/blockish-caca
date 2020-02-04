@@ -19,3 +19,7 @@ redhook = "1.0.0"
 gag = "0.1"
 
 crossterm = { version = "0.14" }
+
+[profile.dev]
+# Optimize by default so we don't need to remember to always pass in --release
+opt-level = 3
