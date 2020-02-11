@@ -20,7 +20,17 @@ $ cargo run mplayer path/to/your/video
 $ cargo run mpv path/to/your/video
 ```
 
-# using it (shell)
+# using it (terminal)
+
+```shell
+$ CACA_DRIVER=raw LD_PRELOAD=target/release/libcaca_blockish.so mplayer -vo caca path/to/your/video
+```
+
+```shell
+$ CACA_DRIVER=raw LD_PRELOAD=target/release/libcaca_blockish.so mplayer -vo caca path/to/your/video
+```
+
+# using it (shell script)
 
 ```shell
 $ ./mplayer path/to/your/video

@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 . $(dirname $(readlink -f "$0"))/setup.sh
-mpv -quiet -vo caca "$@"
+export DISPLAY=""
+cvlc --quiet -V caca "$@"
+
