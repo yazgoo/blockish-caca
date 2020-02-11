@@ -20,6 +20,10 @@ $ cargo run mplayer path/to/your/video
 $ cargo run mpv path/to/your/video
 ```
 
+```shell
+$ cargo run cvlc path/to/your/video
+```
+
 # using it (terminal)
 
 ```shell
@@ -30,6 +34,10 @@ $ CACA_DRIVER=raw LD_PRELOAD=target/release/libcaca_blockish.so mplayer -vo caca
 $ CACA_DRIVER=raw LD_PRELOAD=target/release/libcaca_blockish.so mplayer -vo caca path/to/your/video
 ```
 
+```shell
+$ DISPLAY="" CACA_DRIVER=raw LD_PRELOAD=target/release/libcaca_blockish.so:/usr/lib/x86_64-linux-gnu/libcaca.so cvlc --quiet -V caca /path/to/your/video
+```
+
 # using it (shell script)
 
 ```shell
@@ -38,4 +46,8 @@ $ ./mplayer path/to/your/video
 
 ```shell
 $ ./mpv path/to/your/video
+```
+
+```shell
+$ ./vlc path/to/your/video
 ```

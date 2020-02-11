@@ -30,6 +30,7 @@ pub type CacaDitherT = caca_dither;
 
 static mut WIDTH: i32 = 0;
 static mut HEIGHT: i32 = 0;
+static mut BYTES_PER_PIXEL: u32 = 0;
 
 redhook::hook! {
     unsafe fn caca_dither_bitmap(
@@ -47,9 +48,9 @@ redhook::hook! {
         let original_width : u32 = WIDTH as u32;
         let original_height : u32 = HEIGHT as u32;
         print!("\x1b[{};0f", 1);
-        let raw_slice = slice::from_raw_parts(data, (original_width * original_height * 3) as usize);
+        let raw_slice = slice::from_raw_parts(data, (original_width * original_height * BYTES_PER_PIXEL) as usize);
         render(width as u32, height as u32, &|x, y| {
-            let start = (( ((y * original_height / height) * original_width as u32 + (x * original_width / width) ) * 3)) as usize;
+            let start = (( ((y * original_height / height) * original_width as u32 + (x * original_width / width) ) * BYTES_PER_PIXEL)) as usize;
             let b = (raw_slice[start]) as u8;
             let g = (raw_slice[start + 1]) as u8;
             let r = (raw_slice[start + 2]) as u8;
@@ -82,6 +83,7 @@ redhook::hook! {
         let res = redhook::real!(caca_create_dither)(_arg1, _arg2, _arg3, _arg4, _arg5, _arg6, _arg7, _arg8);
         WIDTH=_arg2;
         HEIGHT=_arg3;
+        BYTES_PER_PIXEL=_arg1 as u32 / 8;
         res
     }
 }

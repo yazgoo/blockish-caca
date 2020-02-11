@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 . $(dirname $(readlink -f "$0"))/setup.sh
 export DISPLAY=""
-cvlc --quiet -V caca "$@"
-
+LIBCACA_SO=$(whereis -b 'libcaca.so' | cut -d' ' -f2)
+export LD_PRELOAD="$LD_PRELOAD:$LIBCACA_SO"
+cvlc --quiet -V caca "$@" 
