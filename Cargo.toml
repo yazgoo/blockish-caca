@@ -15,7 +15,7 @@ path = "src/bin.rs"
 
 [dependencies]
 blockish = { version = "0.0.2" }
-redhook = "1.0.0"
+redhook = { git = "https://github.com/yazgoo/redhook#07dc2275e02c5676293e90aeccb0660ccb79306a" }
 gag = "0.1"
 
 crossterm = { version = "0.14" }
