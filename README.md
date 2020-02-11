@@ -1,6 +1,6 @@
 # blockish-caca
 
-video players in the terminal with [blockish](https://github.com/yazgoo/blockish) (utf-8 blocks) over libcaca with LD_PRELOAD magic
+video players in the terminal with [blockish](https://github.com/yazgoo/blockish) (unicode blocks) over libcaca with LD_PRELOAD magic
 
 [![Example](images/sintel.gif)](https://www.youtube.com/watch?v=HminM4V40iI)
 
