@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 . $(dirname $(readlink -f "$0"))/setup.sh
 export DISPLAY=""
-LIBCACA_SO=$(whereis -b 'libcaca.so' | cut -d' ' -f2)
+# also preload original libcaca.so since it does not seems to be in load path for vlc
+LIBCACA_SO=$(ldconfig -p |grep -i "libcaca.so " | sed 's/.* //')
 export LD_PRELOAD="$LD_PRELOAD:$LIBCACA_SO"
 cvlc --quiet -V caca "$@" 
