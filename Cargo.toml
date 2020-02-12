@@ -1,5 +1,5 @@
 [package]
-name = "caca-blockish"
+name = "blockish-caca"
 version = "0.0.1"
 authors = ["yazgoo <yazgoo@gmail.com>"]
 edition = "2018"
@@ -10,7 +10,7 @@ crate-type = ["dylib"]
 path = "src/lib.rs"
 
 [[bin]]
-name = "caca-blockish"
+name = "blockish-caca"
 path = "src/bin.rs"
 
 [dependencies]
