@@ -4,6 +4,12 @@ version = "0.0.1"
 authors = ["yazgoo <yazgoo@gmail.com>"]
 edition = "2018"
 license = "MIT"
+description = "play videos in the terminal with unicode chars"
+readme = "README.md"
+homepage = "https://github.com/yazgoo/blockish-caca"
+repository = "https://github.com/yazgoo/blockish-caca"
+keywords = ["unicode", "video", "player", "libcaca"]
+categories = ["command-line-utilities"]
 
 [lib]
 crate-type = ["dylib"] 
