@@ -3,7 +3,7 @@ extern crate redhook;
 extern crate blockish;
 use blockish::render;
 use std::slice;
-
+use std::env;
 use gag::Gag;
 
 #[repr(C)]
@@ -42,7 +42,23 @@ redhook::hook! {
         _arg6: *const CacaDitherT,
         data: *const ::std::os::raw::c_uchar
     ) -> ::std::os::raw::c_int => my_caca_dither_bitmap {
-        let (bwidth, bheight) = crossterm::terminal::size().unwrap();
+        let mut bwidth = 80;
+        let mut bheight = 20;
+        if let Ok(columns_string) = env::var("COLUNMS") {
+            if let Ok(columns) = columns_string.parse() {
+                bwidth = columns;
+            }
+        }
+        if let Ok(lines_string) = env::var("LINES") {
+            if let Ok(lines) = lines_string.parse() {
+                bheight = lines;
+            }
+        }
+        match crossterm::terminal::size() {
+            Ok(res) => {bwidth = res.0; bheight = res.1 }
+            Err(_) => {
+            }
+        }
         let width = bwidth as u32 * 8;
         let height = bheight as u32 * 16 - 1;
         let original_width : u32 = WIDTH as u32;
