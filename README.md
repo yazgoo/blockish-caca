@@ -10,6 +10,10 @@ video players in the terminal with [blockish](https://github.com/yazgoo/blockish
 $ cargo build --release
 ```
 
+# Using it as a crate
+
+See [blockish-player](https://github.com/yazgoo/blockish-player)
+
 # using it (rust)
 
 ```shell
