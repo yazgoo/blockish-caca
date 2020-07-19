@@ -1,7 +1,7 @@
 extern crate crossterm;
 extern crate redhook;
 extern crate blockish;
-use blockish::render;
+use blockish::ThreadedEngine;
 use std::slice;
 use std::env;
 use gag::Gag;
@@ -31,6 +31,11 @@ pub type CacaDitherT = caca_dither;
 static mut WIDTH: i32 = 0;
 static mut HEIGHT: i32 = 0;
 static mut BYTES_PER_PIXEL: u32 = 0;
+static mut TERMINAL_WIDTH: i32 = 0;
+static mut TERMINAL_HEIGHT: i32 = 0;
+static mut TERMINAL_SIZE_CHANGED: bool = false;
+
+static mut ENGINE: Option<blockish::ThreadedEngine> = None;
 
 redhook::hook! {
     unsafe fn caca_dither_bitmap(
@@ -47,31 +52,55 @@ redhook::hook! {
         if let Ok(columns_string) = env::var("COLUNMS") {
             if let Ok(columns) = columns_string.parse() {
                 bwidth = columns;
+                if TERMINAL_WIDTH != columns {
+                    TERMINAL_WIDTH = columns;
+                    TERMINAL_SIZE_CHANGED = true;
+                }
             }
         }
         if let Ok(lines_string) = env::var("LINES") {
             if let Ok(lines) = lines_string.parse() {
                 bheight = lines;
+                if TERMINAL_HEIGHT != lines {
+                    TERMINAL_HEIGHT = lines;
+                    TERMINAL_SIZE_CHANGED = true;
+                }
             }
         }
         match crossterm::terminal::size() {
-            Ok(res) => {bwidth = res.0; bheight = res.1 }
+            Ok(res) => {
+                bwidth = res.0 as i32;
+                bheight = res.1 as i32;
+                if bwidth != TERMINAL_WIDTH || bheight != TERMINAL_HEIGHT {
+                    TERMINAL_SIZE_CHANGED = true;
+                }
+                TERMINAL_WIDTH = bwidth;
+                TERMINAL_HEIGHT = bheight;
+            }
             Err(_) => {
             }
         }
         let width = bwidth as u32 * 8;
         let height = bheight as u32 * 16 - 1;
+        if TERMINAL_SIZE_CHANGED {
+            ENGINE = Some(ThreadedEngine::new(width as u32, height as u32, true));
+        }
         let original_width : u32 = WIDTH as u32;
         let original_height : u32 = HEIGHT as u32;
         print!("\x1b[{};0f", 1);
         let raw_slice = slice::from_raw_parts(data, (original_width * original_height * BYTES_PER_PIXEL) as usize);
-        render(width as u32, height as u32, &|x, y| {
-            let start = (( ((y * original_height / height) * original_width as u32 + (x * original_width / width) ) * BYTES_PER_PIXEL)) as usize;
-            let b = (raw_slice[start]) as u8;
-            let g = (raw_slice[start + 1]) as u8;
-            let r = (raw_slice[start + 2]) as u8;
-            (r, g, b)
-        });
+        match &mut ENGINE {
+            Some(engine) => {
+                engine.render(&|x, y| {
+                    let start = (( ((y * original_height / height) * original_width as u32 + (x * original_width / width) ) * BYTES_PER_PIXEL)) as usize;
+                    let b = (raw_slice[start]) as u8;
+                    let g = (raw_slice[start + 1]) as u8;
+                    let r = (raw_slice[start + 2]) as u8;
+                    (r, g, b)
+                });
+            }
+            None => {}
+        };
         0
     }
 }
