@@ -1,6 +1,6 @@
 [package]
 name = "blockish-caca"
-version = "0.0.2"
+version = "0.0.3"
 authors = ["yazgoo <yazgoo@gmail.com>"]
 edition = "2018"
 license = "MIT"
@@ -20,7 +20,7 @@ name = "blockish-caca"
 path = "src/bin.rs"
 
 [dependencies]
-blockish = { version = "0.0.8" }
+blockish = { version = "0.1.2" }
 redhook = { version = "1.0" }
 gag = "0.1"
 crossterm = { version = "0.14" }

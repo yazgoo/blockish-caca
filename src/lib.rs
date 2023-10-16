@@ -1,10 +1,10 @@
+extern crate blockish;
 extern crate crossterm;
 extern crate redhook;
-extern crate blockish;
 use blockish::ThreadedEngine;
-use std::slice;
-use std::env;
 use gag::Gag;
+use std::env;
+use std::slice;
 
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -96,7 +96,7 @@ redhook::hook! {
                     let b = (raw_slice[start]) as u8;
                     let g = (raw_slice[start + 1]) as u8;
                     let r = (raw_slice[start + 2]) as u8;
-                    (r, g, b)
+                    (r, g, b, 0)
                 });
             }
             None => {}
