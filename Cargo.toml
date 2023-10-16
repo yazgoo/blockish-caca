@@ -1,6 +1,6 @@
 [package]
 name = "blockish-caca"
-version = "0.0.3"
+version = "0.0.4"
 authors = ["yazgoo <yazgoo@gmail.com>"]
 edition = "2018"
 license = "MIT"
@@ -23,7 +23,7 @@ path = "src/bin.rs"
 blockish = { version = "0.1.2" }
 redhook = { version = "1.0" }
 gag = "0.1"
-crossterm = { version = "0.14" }
+crossterm = { version = "0.27" }
 blockish-player = "0.0.2"
 
 [profile.dev]
